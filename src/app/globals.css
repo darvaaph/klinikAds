@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-angka: var(--font-space-grotesk), var(--font-inter), sans-serif;
+
+  /* TV palette, ARCH §4.5 */
+  --color-tv-latar: #f6f8f9;
+  --color-tv-kartu: #ffffff;
+  --color-tv-teks: #13262b;
+  --color-tv-teks-2: #4a5f65;
+  --color-tv-garis: #dce4e6;
+  --color-tv-penanda: #f2b134;
+  --color-tv-media: #1c2a2e;
+  --color-klinik: var(--warna-klinik, #0b5563);
+}
+
+body {
+  background: #ffffff;
+  color: #171717;
+  font-family: var(--font-sans);
+}
+
+/* Running text: the track holds the items twice, so -50% loops seamlessly. */
+@keyframes tv-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.tv-ticker {
+  animation: tv-ticker 70s linear infinite;
+}
+
+/* New call: yellow ring pulses 3 times (CSS only, ARCH §8). */
+@keyframes tv-kedip {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(242 177 52 / 0);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgb(242 177 52 / 0.9);
+  }
+}
+
+.tv-kedip {
+  animation: tv-kedip 1s ease-in-out 3;
+}
+
+/* Call card countdown bar. Duration is set inline from DURASI_KARTU_MS. */
+@keyframes tv-hitung-mundur {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.tv-hitung-mundur {
+  animation-name: tv-hitung-mundur;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
