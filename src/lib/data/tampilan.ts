@@ -3,10 +3,15 @@
 // Only whitelisted fields are copied, so penjamin and the PIN hash can never leak.
 import type { Tampilan } from "@/types/api";
 import { hariIni } from "@/lib/format";
+import { FILE_QR_PANTAU } from "./konstanta";
 import { store, type Tiket } from "./store";
 
-/** Public URL for a konten file: sample files live in /public, uploads go through /api/media. */
-export function urlMedia(filePath: string): string {
+/**
+ * Public URL for a konten file: sample files live in /public, uploads go through /api/media.
+ * The QR slide has no file; it is drawn per klinik (needs `slug`).
+ */
+export function urlMedia(filePath: string, slug?: string): string {
+  if (filePath === FILE_QR_PANTAU) return `/api/klinik/${slug ?? "palsigunung-2"}/qr-pantau`;
   return filePath.startsWith("/") ? filePath : `/api/media/${filePath}`;
 }
 
@@ -22,6 +27,12 @@ export function urutanAntri(a: Tiket, b: Tiket) {
   return (
     Number(b.prioritas) - Number(a.prioritas) || a.dibuatPada.getTime() - b.dibuatPada.getTime()
   );
+}
+
+/** Sponsor name + logo for the TV strip. Never contact details. */
+function infoSponsor(sponsorId: string | null) {
+  const sp = sponsorId ? store().sponsor.find((x) => x.id === sponsorId) : undefined;
+  return { sponsorNama: sp?.nama ?? null, sponsorLogoUrl: sp?.logoUrl ?? null };
 }
 
 export function ambilTampilan(slug: string, sekarang = new Date()): Tampilan | null {
@@ -74,13 +85,10 @@ export function ambilTampilan(slug: string, sekarang = new Date()): Tampilan | n
         kontenId: k.id,
         tipe: k.tipe,
         kategori: k.kategori,
-        url: urlMedia(k.filePath),
+        url: urlMedia(k.filePath, klinik.slug),
         durasiDetik: k.durasiDetik,
         bobot,
-        sponsorNama:
-          k.kategori === "iklan_sponsor"
-            ? (s.sponsor.find((sp) => sp.id === k.sponsorId)?.nama ?? null)
-            : null,
+        ...infoSponsor(k.kategori === "iklan_sponsor" ? k.sponsorId : null),
       });
     }
   }

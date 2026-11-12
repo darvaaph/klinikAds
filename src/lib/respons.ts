@@ -16,6 +16,7 @@ export const KODE_ERROR = {
   TIKET_TIDAK_DITEMUKAN: { status: 404, pesan: "Nomor antrian tidak ditemukan hari ini." },
   // Not listed in API §1.2; used by the CMS endpoints for unknown ids.
   KONTEN_TIDAK_DITEMUKAN: { status: 404, pesan: "Konten tidak ditemukan." },
+  SPONSOR_TIDAK_DITEMUKAN: { status: 404, pesan: "Sponsor tidak ditemukan." },
   PENEMPATAN_TIDAK_DITEMUKAN: { status: 404, pesan: "Penempatan tidak ditemukan." },
   // Not listed in API §1.2; signed upload URL is wrong or expired.
   UNGGAH_DITOLAK: { status: 403, pesan: "Izin unggah tidak valid atau sudah kedaluwarsa." },

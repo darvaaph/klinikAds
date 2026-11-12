@@ -45,7 +45,7 @@ Supabase ditunda. Sampai tahap 6, data berasal dari **data palsu di memori serve
 **Selesai jika:** `pnpm dev` jalan, URL Vercel bisa dibuka dari HP.
 **Prompt:** `Buat proyek Next.js 15 App Router + TypeScript + Tailwind dengan struktur folder di 02-ARCHITECTURE.md §3. Pasang dependensi di §1.1. Siapkan ESLint/Prettier dan alias @/.`
 
-### T-002: Environment & klien Supabase ⬜
+### T-002: Environment & klien Supabase ✅ _(kunci diisi setelah project Supabase dibuat)_
 **Effort:** 45 mnt · **Butuh:** T-001 · **Konteks:** ARCH §6.3, §4.2
 - `.env.local.example`, validasi env dengan Zod (app gagal start kalau ada yang kosong).
 - `lib/supabase/server.ts` (service role, ditandai `import 'server-only'`) dan `lib/supabase/browser.ts` (anon).
@@ -160,7 +160,7 @@ Supabase ditunda. Sampai tahap 6, data berasal dari **data palsu di memori serve
 
 ## Fase 4 — Halaman QR
 
-### T-018: Halaman pantau antrian ✅ _(gambar QR untuk slide TV belum dibuat, lihat KEPUTUSAN.md)_
+### T-018: Halaman pantau antrian ✅
 **Effort:** 90 mnt · **Butuh:** T-016 · **Konteks:** PRD F-004, API §2 `posisi`
 - Input kode (huruf poli + angka), simpan kode terakhir di localStorage (try/catch). Tampilkan status, nomor dipanggil, orang di depan. Diperbarui realtime `status_poli` atau polling 10 detik.
 - Gambar QR untuk slide TV: QR besar (≥ 600 px pada kanvas 1920) ke `/q/palsigunung-2`, dibuat sekali dan diunggah sebagai konten gambar.

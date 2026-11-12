@@ -34,6 +34,7 @@ export type Tampilan = {
     bobot: number;
     /** Shown as "Dipersembahkan oleh …" under the video. Sponsor name only, never contact. */
     sponsorNama: string | null;
+    sponsorLogoUrl: string | null;
   }[];
   runningText: string[];
   panggilanTerakhir: {

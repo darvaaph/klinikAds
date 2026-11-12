@@ -127,7 +127,8 @@ create table sponsor (
   id        uuid primary key default gen_random_uuid(),
   nama      text not null,
   kategori  text not null,            -- 'bank','farmasi_otc','fmcg','penunjang_medis'
-  kontak    text
+  kontak    text,
+  logo_url  text                      -- opsional, tampil di strip "Dipersembahkan oleh" di TV
 );
 
 create table konten (

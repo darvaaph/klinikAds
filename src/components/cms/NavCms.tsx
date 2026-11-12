@@ -8,6 +8,7 @@ const MENU = [
   { href: "/cms/klinik", label: "Klinik" },
   { href: "/cms/konten", label: "Konten" },
   { href: "/cms/penempatan", label: "Penempatan" },
+  { href: "/cms/sponsor", label: "Sponsor" },
   { href: "/cms/laporan", label: "Laporan" },
   { href: "/cms/mockup-admin-klinik", label: "Mockup Admin Klinik" },
 ];

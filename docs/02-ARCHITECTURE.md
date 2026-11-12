@@ -19,6 +19,7 @@
 | Penyimpanan file | Supabase Storage (bucket publik `konten`) | – | Video/gambar iklan, dengan URL CDN |
 | Validasi | Zod | 3.x | Validasi input di route handler |
 | Hash PIN | bcryptjs | – | Tanpa dependensi native, aman di Vercel |
+| Kode QR | qrcode | 1.5 | Membuat slide QR pantau antrian di server (disetujui pemilik proyek 2026-11-12) |
 | Sesi prototipe | Cookie httpOnly bertanda tangan (`jose`, HS256) | – | Ringan. Diganti Supabase Auth di fase MVP |
 | Hosting | Vercel | – | Deploy dari Git, preview per branch |
 | Browser TV | Fully Kiosk Browser (Android TV) atau Chrome layar penuh | – | Autostart, mode kiosk, reload jarak jauh |

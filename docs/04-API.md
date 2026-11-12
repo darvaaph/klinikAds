@@ -59,8 +59,8 @@ Snapshot untuk TV. Tidak berisi data pribadi.
   "playlist": [
     { "kontenId": "uuid", "tipe": "video", "kategori": "iklan_sponsor",
       "url": "https://<supabase>/storage/v1/object/public/konten/...", "durasiDetik": 30, "bobot": 2,
-      "sponsorNama": "Contoh Bank Sehat (fiktif)" },
-    { "kontenId": "uuid", "tipe": "gambar", "kategori": "edukasi", "url": "...", "durasiDetik": 12, "bobot": 1, "sponsorNama": null }
+      "sponsorNama": "Contoh Bank Sehat (fiktif)", "sponsorLogoUrl": "..." },
+    { "kontenId": "uuid", "tipe": "gambar", "kategori": "edukasi", "url": "...", "durasiDetik": 12, "bobot": 1, "sponsorNama": null, "sponsorLogoUrl": null }
   ],
   "runningText": ["Dokter gigi praktik hari ini pukul 16.00–20.00", "..."],
   "panggilanTerakhir": [ { "id": "uuid", "poliId": "uuid", "kode": "A-013", "jenis": "baru", "dibuatPada": "..." } ],
@@ -69,6 +69,9 @@ Snapshot untuk TV. Tidak berisi data pribadi.
 ```
 - `panggilanTerakhir`: maksimal 5 dari 60 detik terakhir. Dipakai TV untuk menyusul panggilan yang terlewat saat reconnect, dengan mencocokkan `id` yang sudah pernah ditampilkan.
 - Cache: `Cache-Control: no-store`.
+
+### `GET /api/klinik/[slug]/qr-pantau`
+Publik. Mengembalikan gambar SVG 1920×1080 "Pantau antrian dari HP" dengan kode QR ke `/q/[slug]` pada host yang sama dengan permintaan (IP laptop di lokasi, URL Vercel nanti). Konten contoh "QR pantau antrian" memakai `filePath` penanda `qr-pantau` yang diarahkan ke endpoint ini.
 
 ### `GET /api/klinik/[slug]/posisi?kode=A-014`
 Untuk halaman QR.
@@ -163,7 +166,8 @@ Menandai tiket menunggu sebagai prioritas.
 ```
 Semua field opsional. `warnaUtama` dicek kontrasnya → 400 `WARNA_KONTRAS_RENDAH`. `pinRemoteBaru` di-hash bcrypt.
 
-### `GET /api/cms/sponsor` · `POST /api/cms/sponsor` `{ "nama": "...", "kategori": "bank", "kontak": "..." }`
+### `GET /api/cms/sponsor` · `POST /api/cms/sponsor` `{ "nama": "...", "kategori": "bank", "kontak": "...", "logoUrl": null }`
+### `PATCH /api/cms/sponsor/[id]` (`nama`, `kategori`, `kontak`, `logoUrl`) · logo harus hasil unggah (`/api/media/...`). `404 SPONSOR_TIDAK_DITEMUKAN`.
 
 ### `POST /api/cms/konten/url-unggah`
 Minta signed upload URL ke Storage.

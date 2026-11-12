@@ -20,6 +20,14 @@ export function StripSponsor({ item, namaKlinik }: { item: Item | null; namaKlin
   return (
     <div className="flex min-h-0 flex-1 items-center gap-4 rounded-[20px] bg-tv-kartu px-8">
       <span className="shrink-0 text-[28px] text-tv-teks-2">{LABEL_KATEGORI[item.kategori]}</span>
+      {sponsor && item.sponsorLogoUrl && (
+        // eslint-disable-next-line @next/next/no-img-element -- plain <img> keeps the TV bundle small
+        <img
+          src={item.sponsorLogoUrl}
+          alt=""
+          className="h-16 w-auto max-w-[200px] shrink-0 rounded-xl object-contain"
+        />
+      )}
       <span
         className={`truncate text-[32px] font-bold ${sponsor ? "text-tv-teks" : "text-[var(--warna-klinik)]"}`}
       >

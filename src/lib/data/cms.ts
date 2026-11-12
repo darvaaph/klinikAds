@@ -65,9 +65,30 @@ export function daftarSponsor() {
   return store().sponsor;
 }
 
-export function buatSponsor(data: { nama: string; kategori: string; kontak?: string | null }) {
-  const sponsor = { id: crypto.randomUUID(), ...data, kontak: data.kontak ?? null };
+export function buatSponsor(data: {
+  nama: string;
+  kategori: string;
+  kontak?: string | null;
+  logoUrl?: string | null;
+}) {
+  const sponsor = {
+    id: crypto.randomUUID(),
+    ...data,
+    kontak: data.kontak ?? null,
+    logoUrl: data.logoUrl ?? null,
+  };
   store().sponsor.push(sponsor);
+  return sponsor;
+}
+
+export function ubahSponsor(
+  id: string,
+  data: { nama?: string; kategori?: string; kontak?: string | null; logoUrl?: string | null },
+) {
+  const sponsor = store().sponsor.find((s) => s.id === id);
+  if (!sponsor) throw new GalatData("SPONSOR_TIDAK_DITEMUKAN");
+  Object.assign(sponsor, data);
+  // TVs re-read sponsor name/logo from every snapshot, so no playlistVersi bump is needed.
   return sponsor;
 }
 

@@ -76,6 +76,8 @@ export type Sponsor = {
   nama: string;
   kategori: string; // 'bank','farmasi_otc','fmcg','penunjang_medis'
   kontak: string | null;
+  /** Shown in the TV strip "Dipersembahkan oleh". Optional. */
+  logoUrl: string | null;
 };
 
 export type LogTayang = {

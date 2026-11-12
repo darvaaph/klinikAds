@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <!-- Fictional sponsor mark for demos (no real brand). -->
+  <rect width="240" height="240" rx="48" fill="#1F4E8C"/>
+  <path d="M120 44 L184 70 V118 C184 158 156 186 120 198 C84 186 56 158 56 118 V70 Z" fill="#FFFFFF"/>
+  <text x="120" y="146" text-anchor="middle" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="64" font-weight="700" fill="#1F4E8C">BS</text>
+</svg>

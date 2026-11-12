@@ -63,7 +63,11 @@ export function PlayerTv({ slug, awal }: { slug: string; awal: Tampilan }) {
                 dijeda={!mulai || kartu !== null}
                 onTayang={setTayang}
               />
-              <StripSponsor item={tayang} namaKlinik={klinik.nama} />
+              <StripSponsor
+                // Fresh sponsor name/logo from the latest snapshot, not the item captured at rotation time.
+                item={tampilan.playlist.find((p) => p.kontenId === tayang?.kontenId) ?? tayang}
+                namaKlinik={klinik.nama}
+              />
             </section>
           </div>
 

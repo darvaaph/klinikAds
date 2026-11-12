@@ -1,4 +1,5 @@
 // Sample data mirroring 03-DATABASE.md §8. No real sponsor brands.
+import { FILE_QR_PANTAU } from "./konstanta";
 import { hariIni, kodeNomor } from "@/lib/format";
 import type { AlasanPrioritas, Konten, Penempatan, Penjamin, Poli, Store, Tiket } from "./store";
 
@@ -85,7 +86,10 @@ const KLINIK_CONTOH: {
 ];
 
 // Placeholder media served from /public/contoh until Supabase Storage is set up.
-type MediaContoh = Pick<Konten, "judul" | "tipe" | "kategori" | "filePath" | "durasiDetik">;
+type MediaContoh = Pick<Konten, "judul" | "tipe" | "kategori" | "filePath" | "durasiDetik"> & {
+  /** Which fictional sample sponsor an iklan_sponsor item belongs to. */
+  sponsor?: "bank" | "apotek";
+};
 const MEDIA_CONTOH: MediaContoh[] = [
   {
     judul: "Cuci tangan 6 langkah",
@@ -114,36 +118,61 @@ const MEDIA_CONTOH: MediaContoh[] = [
     kategori: "iklan_sponsor",
     filePath: "/contoh/sponsor-contoh.svg",
     durasiDetik: 10,
+    sponsor: "bank",
   },
   {
     judul: "QR pantau antrian",
     tipe: "gambar",
     kategori: "info",
-    filePath: "/contoh/qr-pantau.svg",
+    filePath: FILE_QR_PANTAU,
     durasiDetik: 10,
   },
-  // Synthetic placeholder videos (solid color + text, made with ffmpeg). Real
-  // educational videos replace these in T-006.
+  // Stock clips from Pexels (free licence: commercial use and edits allowed, no credit
+  // required), trimmed to 720p H.264 without sound, with captions added via ffmpeg.
+  // Sponsor clips show no people, so no one appears to endorse a brand.
   {
-    judul: "Video edukasi: tidur cukup",
+    judul: "Video edukasi: cuci tangan",
     tipe: "video",
     kategori: "edukasi",
-    filePath: "/contoh/video-edukasi-1.mp4",
+    filePath: "/contoh/video-edukasi-cuci-tangan.mp4",
+    durasiDetik: 9,
+  },
+  {
+    judul: "Video edukasi: minum air putih",
+    tipe: "video",
+    kategori: "edukasi",
+    filePath: "/contoh/video-edukasi-air-putih.mp4",
+    durasiDetik: 18,
+  },
+  {
+    judul: "Video edukasi: isi piringku",
+    tipe: "video",
+    kategori: "edukasi",
+    filePath: "/contoh/video-edukasi-sayur.mp4",
+    durasiDetik: 20,
+  },
+  {
+    judul: "Video promo: periksa kesehatan rutin",
+    tipe: "video",
+    kategori: "promo_klinik",
+    filePath: "/contoh/video-promo-klinik.mp4",
     durasiDetik: 15,
   },
   {
-    judul: "Video edukasi: jalan kaki",
-    tipe: "video",
-    kategori: "edukasi",
-    filePath: "/contoh/video-edukasi-2.mp4",
-    durasiDetik: 12,
-  },
-  {
-    judul: "Video sponsor fiktif (Contoh)",
+    judul: "Video sponsor: Contoh Apotek Sentosa",
     tipe: "video",
     kategori: "iklan_sponsor",
-    filePath: "/contoh/video-sponsor-contoh.mp4",
-    durasiDetik: 10,
+    filePath: "/contoh/video-sponsor-apotek.mp4",
+    durasiDetik: 15,
+    sponsor: "apotek",
+  },
+  {
+    judul: "Video sponsor: Contoh Bank Sehat",
+    tipe: "video",
+    kategori: "iklan_sponsor",
+    filePath: "/contoh/video-sponsor-bank.mp4",
+    durasiDetik: 11,
+    sponsor: "bank",
   },
 ];
 
@@ -213,26 +242,23 @@ export function buatDataContoh(sekarang: Date): Store {
     nama: "Contoh Bank Sehat (fiktif)",
     kategori: "bank",
     kontak: null,
+    logoUrl: "/contoh/logo-bank-sehat.svg",
   };
   const sponsorApotek = {
     id: id(),
     nama: "Contoh Apotek Sentosa (fiktif)",
     kategori: "farmasi_otc",
     kontak: null,
+    logoUrl: "/contoh/logo-apotek-sentosa.svg",
   };
   s.sponsor.push(sponsorBank, sponsorApotek);
 
-  const media: Konten[] = MEDIA_CONTOH.map((m) => ({
+  const media: Konten[] = MEDIA_CONTOH.map(({ sponsor, ...m }) => ({
     ...m,
     id: id(),
     teks: null,
     aktif: true,
-    sponsorId:
-      m.kategori !== "iklan_sponsor"
-        ? null
-        : m.tipe === "video"
-          ? sponsorApotek.id
-          : sponsorBank.id,
+    sponsorId: sponsor === "bank" ? sponsorBank.id : sponsor === "apotek" ? sponsorApotek.id : null,
     produkObatSuplemen: false,
     izinEdarBpom: null,
     dibuatPada: new Date(sekarang.getTime() - 20 * 86_400_000),

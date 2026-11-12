@@ -2,6 +2,7 @@ import { z } from "zod";
 import { bacaBody, wajibAdmin } from "@/lib/api";
 import { buatSponsor, daftarSponsor } from "@/lib/data/cms";
 import { berhasil } from "@/lib/respons";
+import { LogoUnggahan } from "@/lib/skema";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,7 @@ const Body = z.object({
   nama: z.string().trim().min(2).max(80),
   kategori: z.enum(["bank", "farmasi_otc", "fmcg", "penunjang_medis"]),
   kontak: z.string().trim().max(120).nullish(),
+  logoUrl: LogoUnggahan.nullish(),
 });
 
 export async function GET() {

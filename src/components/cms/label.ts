@@ -21,7 +21,13 @@ export const LABEL_KATEGORI_SPONSOR = {
 } as const;
 
 export type KlinikRingkas = { id: string; slug: string; nama: string };
-export type Sponsor = { id: string; nama: string; kategori: string };
+export type Sponsor = {
+  id: string;
+  nama: string;
+  kategori: string;
+  kontak: string | null;
+  logoUrl: string | null;
+};
 
 /** Today in WIB plus `hari` days, as YYYY-MM-DD for <input type="date">. */
 export function tanggalWib(hari = 0): string {
